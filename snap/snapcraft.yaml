@@ -1,6 +1,6 @@
 name: anki-desktop
 base: core24
-version: '24.06.3'
+version: '24.11'
 license: AGPL-3.0-or-later
 summary: Anki is a spaced repetition program
 description: |
@@ -15,20 +15,16 @@ description: |
   - Brushing up on geography
   - Mastering long poems
   - Even practicing guitar chords!
-
 platforms:
   amd64:
   arm64:
-
 grade: stable
 confinement: strict
 compression: lzo
-
 # Fix error xkbcommon: ERROR: [XKB-338] Couldn't find file "rules/evdev" in include paths
 layout:
   /usr/share/X11/xkb:
     symlink: $SNAP/gnome-platform/usr/share/X11/xkb
-
 apps:
   anki-desktop:
     command: ./bin/anki
@@ -57,7 +53,6 @@ apps:
       - desktop-legacy
       - wayland
       - unity7
-
 parts:
   anki:
     plugin: python
