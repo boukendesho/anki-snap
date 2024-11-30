@@ -1,0 +1,81 @@
+name: anki-desktop
+base: core24
+version: '24.06.3'
+license: AGPL-3.0-or-later
+summary: Anki is a spaced repetition program
+description: |
+  Anki is a program which makes remembering things easy. Because it's a lot more efficient than traditional study methods, you can either greatly decrease your time spent studying, or greatly increase the amount you learn.
+
+  Anyone who needs to remember things in their daily life can benefit from Anki. Since it is content-agnostic and supports images, audio, videos and scientific markup (via LaTeX), the possibilities are endless.
+  For example:
+
+  - Learning a language
+  - Studying for medical and law exams
+  - Memorizing people's names and faces
+  - Brushing up on geography
+  - Mastering long poems
+  - Even practicing guitar chords!
+
+platforms:
+  amd64:
+  arm64:
+
+grade: stable
+confinement: strict
+compression: lzo
+
+# Fix error xkbcommon: ERROR: [XKB-338] Couldn't find file "rules/evdev" in include paths
+layout:
+  /usr/share/X11/xkb:
+    symlink: $SNAP/gnome-platform/usr/share/X11/xkb
+
+apps:
+  anki-desktop:
+    command: ./bin/anki
+    desktop: meta/gui/anki-desktop.desktop
+    environment:
+      ANKI_BASE: $SNAP_USER_COMMON
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.12/site-packages
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/blas:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/lapack
+      QT_PLUGIN_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qt6/plugins:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR
+      QTWEBENGINE_DISABLE_SANDBOX: 1
+      QTWEBENGINEPROCESS_PATH: $SNAP/usr/lib/qt6/libexec/QtWebEngineProcess
+      QTWEBENGINE_RESOURCES_PATH: $SNAP/usr/share/qt6/resources
+      QTWEBENGINE_LOCALES_PATH: $SNAP/usr/share/qt6/translations/qtwebengine_locales
+      DISABLE_WAYLAND: 1
+    extensions:
+      - gnome
+    plugs:
+      - audio-playback
+      - audio-record
+      - browser-support
+      - home
+      - network
+      - network-bind
+      - opengl
+      - desktop
+      - desktop-legacy
+      - wayland
+      - unity7
+
+parts:
+  anki:
+    plugin: python
+    source: .
+    python-packages:
+      - aqt==${SNAPCRAFT_PROJECT_VERSION}
+      - anki==${SNAPCRAFT_PROJECT_VERSION}
+    override-build: |
+      craftctl default
+      cd ${CRAFT_PART_INSTALL}/lib/python3.12/site-packages/aqt
+      patch -p1 < ${CRAFT_PART_SRC}/keep_ldpath.patch
+    stage-packages:
+      - python3-pyqt6
+      - python3-pyqt6.qtquick
+      - python3-pyqt6.qtsvg
+      - python3-pyqt6.qtwebengine
+      - libxcb-xinerama0
+      - libxcb-cursor0
+      - libnss3
+      - lame
+      - mpv

@@ -1,0 +1,11 @@
+--- a/sound.py	2024-11-26 20:09:38.180172476 +0900
++++ b/sound.py	2024-11-26 20:11:58.863028585 +0900
+@@ -243,7 +243,7 @@
+ def _packagedCmd(cmd: list[str]) -> tuple[Any, dict[str, str]]:
+     cmd = cmd[:]
+     env = os.environ.copy()
+-    if "LD_LIBRARY_PATH" in env:
++    if "LD_LIBRARY_PATH" in env and "SNAP" not in env:
+         del env["LD_LIBRARY_PATH"]
+ 
+     if is_win:
