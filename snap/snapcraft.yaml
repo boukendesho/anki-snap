@@ -60,10 +60,10 @@ parts:
     python-packages:
       - aqt==${SNAPCRAFT_PROJECT_VERSION}
       - anki==${SNAPCRAFT_PROJECT_VERSION}
-    override-build: |
-      craftctl default
-      cd ${CRAFT_PART_INSTALL}/lib/python3.12/site-packages/aqt
-      patch -p1 < ${CRAFT_PART_SRC}/keep_ldpath.patch
+    # override-build: |
+    #   craftctl default
+    #   cd ${CRAFT_PART_INSTALL}/lib/python3.12/site-packages/aqt
+    #   patch -p1 < ${CRAFT_PART_SRC}/keep_ldpath.patch
     stage-packages:
       - python3-pyqt6
       - python3-pyqt6.qtquick
