@@ -1,7 +1,8 @@
 ## anki-desktop-snap
 [![anki-desktop](https://snapcraft.io/anki-desktop/badge.svg)](https://snapcraft.io/anki-desktop)
 
-[Upstream Project Link](https://github.com/ankitects/anki) 
+## Upstream
+[![anki](https://img.shields.io/github/v/release/ankitects/anki?logo=github)](https://github.com/ankitects/anki)
 
 This is an unofficial snap version for anki, ships the upstream python releases with as few changes as possible. 
   
