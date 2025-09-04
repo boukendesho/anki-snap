@@ -1,6 +1,6 @@
 name: anki-desktop
 base: core24
-version: '25.08b5'
+version: '25.09rc1'
 license: AGPL-3.0-or-later
 summary: Anki is a spaced repetition program
 description: |
