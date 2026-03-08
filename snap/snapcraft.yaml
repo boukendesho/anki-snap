@@ -21,10 +21,7 @@ platforms:
 grade: stable
 confinement: strict
 compression: lzo
-# Fix error xkbcommon: ERROR: [XKB-338] Couldn't find file "rules/evdev" in include paths
-layout:
-  /usr/share/X11/xkb:
-    symlink: $SNAP/gnome-platform/usr/share/X11/xkb
+
 apps:
   anki-desktop:
     command: ./bin/anki
@@ -32,27 +29,16 @@ apps:
     environment:
       ANKI_BASE: $SNAP_USER_COMMON
       PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.12/site-packages
-      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/blas:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/lapack:$SNAP/lib/python3.12/site-packages/PyQt6/Qt6/lib
-      QT_PLUGIN_PATH: $SNAP/lib/python3.12/site-packages/PyQt6/Qt6/plugins
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/blas:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/lapack
       QTWEBENGINE_DISABLE_SANDBOX: 1
-      QTWEBENGINEPROCESS_PATH: $SNAP/lib/python3.12/site-packages/PyQt6/Qt6/libexec/QtWebEngineProcess
-      QTWEBENGINE_RESOURCES_PATH: $SNAP/lib/python3.12/site-packages/PyQt6/Qt6/resources
-      QTWEBENGINE_LOCALES_PATH: $SNAP/lib/python3.12/site-packages/PyQt6/Qt6/translations/qtwebengine_locales
       # DISABLE_WAYLAND: 1
     extensions:
-      - gnome
+      - kde-neon-6
     plugs:
-      - audio-playback
       - audio-record
       - browser-support
       - home
-      - network
-      - network-bind
-      - opengl
-      - desktop
-      - desktop-legacy
-      - wayland
-      - unity7
+
 parts:
   anki:
     plugin: python
@@ -60,27 +46,9 @@ parts:
     python-packages:
       - aqt==${SNAPCRAFT_PROJECT_VERSION}
       - anki==${SNAPCRAFT_PROJECT_VERSION}
-    # override-build: |
-    #   craftctl default
-    #   cd ${CRAFT_PART_INSTALL}/lib/python3.12/site-packages/aqt
-    #   patch -p1 < ${CRAFT_PART_SRC}/keep_ldpath.patch
     stage-packages:
-      # - python3-pyqt6
-      # - python3-pyqt6.qtquick
-      # - python3-pyqt6.qtsvg
-      # - python3-pyqt6.qtwebengine
-      - libxcb-xinerama0
-      - libxkbcommon0
-      - libxkbcommon-x11-0
-      - libxkbfile1
-      - libxcb-cursor0
-      - libxcb-icccm4
-      - libxcb-image0
-      - libxcb-keysyms1
-      - libxcb-render-util0
-      - libxcb-render0
-      - libxcb-shape0
-      - libxcb-xkb1
       - libnss3
       - lame
       - mpv
+    prime:
+      - -lib/python3.12/site-packages/PyQt6/Qt6/
