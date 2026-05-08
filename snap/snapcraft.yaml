@@ -1,6 +1,6 @@
 name: anki-desktop
 base: core24
-version: '25.09.2'
+version: '25.09.3'
 license: AGPL-3.0-or-later
 summary: Anki is a spaced repetition program
 description: |
@@ -21,7 +21,6 @@ platforms:
 grade: stable
 confinement: strict
 compression: lzo
-
 apps:
   anki-desktop:
     command: ./bin/anki
@@ -38,7 +37,6 @@ apps:
       - audio-record
       - browser-support
       - home
-
 parts:
   anki:
     plugin: python
