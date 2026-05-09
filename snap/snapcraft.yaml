@@ -42,8 +42,8 @@ parts:
     plugin: python
     source: .
     python-packages:
-      - aqt==${SNAPCRAFT_PROJECT_VERSION}
-      - anki==${SNAPCRAFT_PROJECT_VERSION}
+      - aqt[qt610]
+      - anki
     stage-packages:
       - libnss3
       - lame
