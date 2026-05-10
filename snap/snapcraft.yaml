@@ -42,7 +42,9 @@ parts:
     plugin: python
     source: .
     python-packages:
-      - aqt[qt610]
+      - pyqt6==6.10
+      - pyqt6-webengine==6.10
+      - aqt
       - anki
     stage-packages:
       - libnss3
