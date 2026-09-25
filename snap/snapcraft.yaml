@@ -24,7 +24,7 @@ compression: lzo
 apps:
   anki-desktop:
     command: ./bin/anki
-    desktop: meta/gui/anki-desktop.desktop
+    desktop: gui/anki-desktop.desktop
     environment:
       ANKI_BASE: $SNAP_USER_COMMON
       PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.12/site-packages
